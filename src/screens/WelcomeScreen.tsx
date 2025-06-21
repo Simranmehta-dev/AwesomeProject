@@ -1,8 +1,24 @@
-import React from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import React , {useState} from 'react';
+import {Text, View, StyleSheet, Image, TextInput, TouchableOpacity} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({navigation}) => {
+   const [input, setInput] = useState('');
+
+   const isValid = () => {
+    const num = parseInt(input);
+    return !isNaN(num) && num > 0;
+  };
+
+  const goToNextScreen = async () => {
+   // navigation.navigate('Calendar', { userInput: input });
+     if (isValid()) {
+      await AsyncStorage.setItem('jobsPerDay', input);
+      navigation.navigate('Calendar', { userInput: input });
+    }
+  };
+
   return (
     <View style={styles.container}>
 
@@ -21,6 +37,33 @@ const WelcomeScreen = () => {
     </View>
      <View style={styles.bottomSection}>
       <Text style={styles.jobs}>Jobs/Days</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Enter jobs per day."
+        placeholderTextColor="#ccc"
+        value={input}
+        onChangeText={setInput}
+      />
+
+      <TouchableOpacity style={[styles.button, !isValid() && styles.buttonDisabled]} onPress={goToNextScreen} disabled={!isValid()}>
+    <View style={styles.buttonContent}>
+      <Text style={styles.buttonText}>Continue</Text>
+      <Text style={styles.arrow}>→</Text>
+    </View>
+  </TouchableOpacity>
+
+   {/* <TouchableOpacity
+          style={[styles.button, !isValid() && styles.buttonDisabled]}
+          onPress={goToNextScreen}
+          disabled={!isValid()}
+        >
+          <View style={styles.buttonContent}>
+            <Text style={styles.buttonText}>Continue</Text>
+            <Text style={styles.arrow}>→</Text>
+          </View>
+        </TouchableOpacity> */}
+
     </View>
     </View>
   );
@@ -85,6 +128,52 @@ const styles = StyleSheet.create({
   jobs:{
     fontSize: 20,
     fontFamily: 'PlayfairDisplay-Regular',
+     width:323,
+     paddingLeft:25,
   },
+  input:{
+    height: 50,           // ⬆️ taller box
+    width: '90%',         // ⬅️ wider box relative to screen width
+    marginTop:15,
+    margin: 25,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 15,          // more inner spacing
+     
+    // borderWidth: 1,
+    // padding: 10,
+    // marginBottom: 20,
+
+  },
+  button: {
+  backgroundColor: '#000',
+  paddingVertical: 12,
+  paddingHorizontal: 20,
+  borderRadius: 4,
+  alignSelf: 'flex-start',  // left aligned
+  marginLeft: 25,           // align with TextInput
+  marginTop: 320,
+},
+
+buttonContent: {
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+
+buttonText: {
+  color: '#fff',
+  fontSize: 13,
+  marginRight: 6,
+  fontFamily: 'PlayfairDisplay-Regular',
+},
+
+arrow: {
+  color: '#fff',
+  fontSize: 16,
+},
+buttonDisabled: {
+  backgroundColor: '#aaa', // lighter to indicate it's disabled
+},
+
  
 });
