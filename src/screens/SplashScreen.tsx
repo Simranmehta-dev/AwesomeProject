@@ -6,26 +6,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const SplashScreen = () => {
      const navigation = useNavigation<any>();
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     navigation.dispatch(StackActions.replace('Welcome'));
-  //   }, 3000); // 2 seconds
-
-  //   return () => clearTimeout(timer); // Clean up on unmount
-  // }, []);
-
    useEffect(() => {
     const checkFirstLaunch = async () => {
       try {
         const jobsPerDay = await AsyncStorage.getItem('jobsPerDay');
+         console.log("🌟 SplashScreen: jobsPerDay = ", jobsPerDay);
+
 
         // Wait for 2–3 seconds for splash effect
         setTimeout(() => {
           if (jobsPerDay) {
             // If user already set target, go to Calendar
+            console.log("✅ Redirecting to Calendar");
             navigation.dispatch(StackActions.replace('Calendar', { userInput: jobsPerDay }));
           } else {
             // Otherwise go to Welcome screen
+            console.log("🛑 Redirecting to Welcome");
             navigation.dispatch(StackActions.replace('Welcome'));
           }
         }, 3000); // 3 seconds splash delay

@@ -1,10 +1,12 @@
-import React , {useState} from 'react';
-import {Text, View, StyleSheet, Image, TextInput, TouchableOpacity} from 'react-native';
+import React , {useState, useEffect} from 'react';
+import {Text, View, StyleSheet, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView, Platform} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import CustomButton from '../components/CustomButton';
 
 const WelcomeScreen = ({navigation}) => {
    const [input, setInput] = useState('');
+
+   
 
    const isValid = () => {
     const num = parseInt(input);
@@ -14,12 +16,28 @@ const WelcomeScreen = ({navigation}) => {
   const goToNextScreen = async () => {
    // navigation.navigate('Calendar', { userInput: input });
      if (isValid()) {
-      await AsyncStorage.setItem('jobsPerDay', input);
-      navigation.navigate('Calendar', { userInput: input });
+       console.log("🎯 Saving this input:", input);
+       await AsyncStorage.setItem('jobsPerDay', input);
+       const check = await AsyncStorage.getItem('jobsPerDay');
+       console.log("✅ Saved to AsyncStorage:", check);
+      //navigation.navigate('Calendar', { userInput: input });
+      navigation.reset({
+  index: 0,
+  routes: [{ name: 'Calendar', params: { userInput: input } }],
+});
     }
   };
 
   return (
+
+    <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+  >
+     <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      keyboardShouldPersistTaps="handled"
+    >
     <View style={styles.container}>
 
     <View style={styles.topSection}>
@@ -46,12 +64,18 @@ const WelcomeScreen = ({navigation}) => {
         onChangeText={setInput}
       />
 
-      <TouchableOpacity style={[styles.button, !isValid() && styles.buttonDisabled]} onPress={goToNextScreen} disabled={!isValid()}>
+       <CustomButton 
+          onPress={goToNextScreen} 
+          text="Continue" 
+          disabled={!isValid()} 
+        />
+
+      {/* <TouchableOpacity style={[styles.button, !isValid() && styles.buttonDisabled]} onPress={goToNextScreen} disabled={!isValid()}>
     <View style={styles.buttonContent}>
       <Text style={styles.buttonText}>Continue</Text>
       <Text style={styles.arrow}>→</Text>
     </View>
-  </TouchableOpacity>
+  </TouchableOpacity> */}
 
    {/* <TouchableOpacity
           style={[styles.button, !isValid() && styles.buttonDisabled]}
@@ -66,6 +90,8 @@ const WelcomeScreen = ({navigation}) => {
 
     </View>
     </View>
+    </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -1,0 +1,174 @@
+<!-- <?xml version="1.0" encoding="utf-8"?> -->
+<!-- <LinearLayout
+ android:id="@+id/widget_root" 
+ xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:background="#121212"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/xp_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XP: 0"
+        android:textColor="@android:color/white"
+        android:textSize="28sp" />
+
+        <ImageView
+        android:id="@+id/widget_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/fire_icon"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/streak_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Streak: 0"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+</LinearLayout> -->
+<!-- 
+<LinearLayout
+    android:id="@+id/widget_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#121212"
+    android:padding="12dp">
+
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="8dp">
+
+        <ImageView
+            android:id="@+id/xp_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/reward"  
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/xp_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XP: 0"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/streak_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/streak"  
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/streak_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Streak: 0"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>
+ -->
+
+
+
+<LinearLayout
+    android:id="@+id/widget_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240dp" 
+    android:layout_height="193dp"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#121212"
+    android:elevation="6dp"
+    android:layout_gravity="center"
+    android:layout_margin="8dp">
+
+    <!-- 🔥 Streak + XP Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="12dp"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/streak_text"
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
+            android:text="🔥 4 days streak"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/xp_text"
+            android:layout_width="0dp"
+            android:layout_weight="0.4"
+            android:layout_height="wrap_content"
+            android:text="+ 60XP"
+            android:textColor="#32CD32"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="end" />
+    </LinearLayout>
+
+    <!-- 3/5 Applications Label -->
+    <TextView
+        android:id="@+id/jobs_progress_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0/0 Applications"
+        android:textColor="#D0D0D0"
+        android:textStyle="italic"
+        android:textSize="14sp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:progress="0"
+        android:max="100"
+        android:progressDrawable="@drawable/progress_drawable"
+        android:layout_marginBottom="12dp"
+        android:background="#333333" />
+
+    <!-- Add Job CTA -->
+    <TextView
+        android:id="@+id/add_job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add job →"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+</LinearLayout>
+

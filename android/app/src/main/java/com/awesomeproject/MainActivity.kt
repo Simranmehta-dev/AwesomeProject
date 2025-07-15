@@ -1,4 +1,8 @@
 package com.awesomeproject
+
+import android.content.SharedPreferences
+import android.widget.Toast
+
 import android.os.Bundle;
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
@@ -14,6 +18,30 @@ class MainActivity : ReactActivity() {
 
    override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(null)
+
+    
+    val sharedPreferences = getSharedPreferences(packageName + "_preferences", MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+
+    val currentGoal = sharedPreferences.getInt("job_goal", -1)
+    val currentJobsCompleted = sharedPreferences.getInt("jobs_completed", -1)
+
+    // Set only if not already set
+    if (currentGoal == -1) {
+        editor.putInt("job_goal", 7) // Set default
+    }
+
+    if (currentJobsCompleted == -1) {
+        editor.putInt("jobs_completed", 0)
+    }
+
+    editor.apply()
+
+    // ✅ OPTIONAL: Update the widget immediately
+    XpStreakWidget.updateWidget(applicationContext)
+
+    Toast.makeText(this, "Goal and progress initialized (only once)", Toast.LENGTH_SHORT).show()
+
   }
 
 
