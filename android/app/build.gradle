@@ -1,6 +1,8 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply plugin: 'com.google.gms.google-services'
+
 project.ext.react = [
     enableHermes: true,  // If you're using Hermes, set it to true
     // Disable auto-linking for AsyncStorage (and others)
